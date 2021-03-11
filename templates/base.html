@@ -31,9 +31,6 @@
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
   <link rel="stylesheet" type="text/css" id="style_sheet" href="{% static 'css/colors.css' %}">
 
-  <!-- Favicon icon -->
-  <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
-
   <!-- Google fonts -->
   <link rel="stylesheet" type="text/css"
     href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800%7CPlayfair+Display:400,700%7CRoboto:100,300,400,400i,500,700">
@@ -49,7 +46,7 @@
 <body>
 
 
-
+  {% include 'includes/main-nav.html' %}
 
 
 
@@ -60,7 +57,7 @@
 
 
 
-
+  {% include 'includes/footer.html' %}
   <!-- Scripts
 ================================================== -->
 <script src="{% static 'scripts/jquery-3.4.1.min.js' %}"></script>
