@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'events',
     'users',
+    #other
+    'django_countries',
 ]
 
 AUTH_USER_MODEL = 'users.Account'

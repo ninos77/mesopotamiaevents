@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.utils.translation import gettext_lazy as _
-
+from django_countries.fields import CountryField
 # Create your models here.
 
 class UserManager(BaseUserManager):
@@ -30,6 +30,11 @@ class UserManager(BaseUserManager):
 
 
 
+def get_image_profile_path(self,filename):
+  return f'profile_image/{self.pk}/{"profile_image.png"}'
+
+def get_default_profile_image():
+  return f'images/logo/ashor.png'
 
 
 class Account(AbstractBaseUser,PermissionsMixin):
@@ -39,12 +44,18 @@ class Account(AbstractBaseUser,PermissionsMixin):
   date_joined = models.DateTimeField(_('Date joined'),auto_now_add=True)
   is_active = models.BooleanField(_('Activ'), default=True)
   is_staff = models.BooleanField(_('is staff'), default=False)
+  is_admin = models.BooleanField(_('is admin'), default=False)
+  profile_image = models.ImageField(max_length=255,upload_to=get_image_profile_path,null=True,blank=True,default=get_default_profile_image)
+  country = CountryField(blank_label='Country', null=True, blank=True)
 
 
   objects = UserManager()
   USERNAME_FIELD = 'email'
   REQUIRED_FIELDS = []
 
+
+  def get_profile_image_filename(self):
+    return str(self.profile_image)[str(self.profile_image).index(f'profile_image/{self.pk}/'):]
 
   class Meta:
 

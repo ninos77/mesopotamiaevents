@@ -18,12 +18,12 @@ class AccountAdmin(UserAdmin):
   add_fieldsets = (
     (None,{
       'classes':('wide',),
-      'fields': ('email','first_name','last_name','password1','password2','is_active'),
+      'fields': ('email','first_name','last_name','password1','password2','is_active','is_staff','is_admin','profile_image','country'),
     }),
   )
 
   fieldsets = (
-      (None, {"fields": ('email','first_name','last_name','password')}),
+      (None, {"fields": ('email','first_name','last_name','password','profile_image','country')}),
       ('Permission', {"fields": ('is_active','is_staff')}),
 
   )
