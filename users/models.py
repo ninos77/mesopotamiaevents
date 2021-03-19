@@ -54,6 +54,9 @@ class Account(AbstractBaseUser,PermissionsMixin):
   REQUIRED_FIELDS = []
 
 
+  def __str__(self):
+    return self.first_name
+
   def get_profile_image_filename(self):
     return str(self.profile_image)[str(self.profile_image).index(f'profile_image/{self.pk}/'):]
 
