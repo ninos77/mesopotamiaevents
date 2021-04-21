@@ -1,0 +1,116 @@
+{% extends "base.html"%}
+{% block title%} | Home{% endblock%}
+{% load static %}
+{% block content %}
+
+<!DOCTYPE html>
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+
+<!-- Mobile Specific Metas
+================================================== -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+</head>
+<body>
+<div id="wrapper">
+
+<!-- Banner
+================================================== -->
+<div id="banner" class="with-transparent-header parallax background" style="background-image: url({% static 'images/banner-home-02.jpg' %});" data-img-width="2000" data-img-height="1330" data-diff="300">
+	<div class="container">
+		<div class="sixteen columns">
+			
+			<div class="search-container">
+
+				<div class="sixteen columns">
+					<h2>My Account</h2>
+					<nav id="breadcrumbs">
+						<ul>
+							<li>You are here:</li>
+							<li><a href="#">Home</a></li>
+							<li>My Account</li>
+						</ul>
+					</nav>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<!-- Container -->
+<div class="container">
+
+	<div class="my-account">
+
+		<ul class="tabs-nav">
+			<li class=""><a href="#tab1">Login</a></li>
+			<li><a href="#tab2">Register</a></li>
+		</ul>
+
+		<div class="tabs-container">
+			<!-- Login -->
+			<div class="tab-content" id="tab1" style="display: none;">
+				<form method="post" class="login">
+
+					<p class="form-row form-row-wide">
+						<label for="username">Username:
+							<i class="ln ln-icon-Male"></i>
+							<input type="text" class="input-text" name="username" id="username" value="" />
+						</label>
+					</p>
+
+					<p class="form-row form-row-wide">
+						<label for="password">Password:
+							<i class="ln ln-icon-Lock-2"></i>
+							<input class="input-text" type="password" name="password" id="password"/>
+						</label>
+					</p>
+
+					<p class="form-row">
+						<input type="submit" class="button border fw margin-top-10" name="login" value="Login" />
+
+						<label for="rememberme" class="rememberme">
+						<input name="rememberme" type="checkbox" id="rememberme" value="forever" /> Remember Me</label>
+					</p>
+
+					<p class="lost_password">
+						<a href="#" >Lost Your Password?</a>
+					</p>
+					
+				</form>
+			</div>
+
+			<!-- Register -->
+			<div class="tab-content" id="tab2" style="display: none;">
+
+				<form method="post" class="register">
+					{% for field in form.visible_fields %}
+				<p class="form-row form-row-wide">
+					<label for="username2">{{field.label}}:
+						<i class="ln {{field.field.icon }}"></i>
+						<input type="{{field.field.widget.input_type}}" class="input-text" name="{{field.html_name}}" id="username2" value=""/>
+					</label>
+				</p>
+					{% endfor %}
+
+				<p class="form-row">
+					<input type="submit" class="button border fw margin-top-10" name="register" value="Register" />
+				</p>
+
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+</body>
+</html>
+{% endblock %}

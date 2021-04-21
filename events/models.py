@@ -11,25 +11,24 @@ def get_event_image_path(self,filname):
   return f'event_images/{self.event.post_by.id}/{filname}'
 
 
+class EventType(models.Model):
+  name = models.CharField(max_length=100)
+
+
+  def __str__(self):
+    return self.name
+
+
 class Event(models.Model):
-  event_choices = (
-    ('Wedding','Wedding'),
-    ('Engagement', 'Engagement'),
-    ('Baptism','Baptism'),
-    ('First Communion','First Communion'),
-    ('party','Party'),
-    ('cultural seminars','Cultural seminars'),
-    ('Funeral','Funeral'),
-    ('other events','Other events'),
-    
-    )
+
   title = models.CharField(max_length=250)
-  event_type = models.CharField(max_length=30,choices=event_choices,blank=False,default=None)
+  #event_type = models.CharField(max_length=30,choices=event_choices,blank=False,default=None)
   event_location = CountryField(blank_label='Country',blank=False,default=None)
   event_description = models.TextField()
   publishing_date = models.DateTimeField(auto_now_add=True)
   slug = models.SlugField(default=None,editable=False)
-  post_by = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,default=None)
+  post_by = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,default=None,related_name='user')
+  event_type= models.ForeignKey('EventType',on_delete=models.CASCADE,default=None,related_name='event')
   video_link = models.URLField(_("Your Video Link"),max_length=255,unique=True,blank=True)
   image = models.ImageField(blank=True)
 
