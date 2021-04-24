@@ -44,8 +44,8 @@
 
 <!-- Container -->
 <div class="container">
+
 	<div class="my-account">
-		<h1>Join Today</h1>
 {% if messages %}
 {% for message in messages %}
 <div class="alert alert-{{message.tags}}">{{ message }}</div>
@@ -53,29 +53,23 @@
 {% endif %}
 		<div class="tabs-container">
 			<!-- Login -->
+			<div class="tab-content" id="tab1" style="display: none;">
+				<form action="#" method="post" class="login">
 
-
-			<!-- Register -->
-			<div class="tab-content" id="tab2" style="display: none;">
-
-				<form action="#" method="post" class="register">
 					{% csrf_token %}
 					{{ form | crispy}}
-					<!--
-					{% for field in form.visible_fields %}
-				<p class="form-row form-row-wide">
-					<label for="username2">{{field.label}}:
-						<i class="ln {{field.field.icon }}"></i>
-						<input type="{{field.field.widget.input_type}}" class="input-text" name="{{field.html_name}}" id="username2" value="" required/>
-					</label>
-				</p>
-					{% endfor %}
-					-->
 
-				<p class="form-row">
-					<input type="submit" class="button border fw margin-top-10" value="Register" />
-				</p>
+					<p class="form-row">
+						<input type="submit" class="button border fw margin-top-10" name="login" value="Login" />
 
+						<label for="rememberme" class="rememberme">
+						<input name="rememberme" type="checkbox" id="rememberme" value="forever" /> Remember Me</label>
+					</p>
+
+					<p class="lost_password">
+						<a href="#" >Lost Your Password?</a>
+					</p>
+					
 				</form>
 			</div>
 		</div>

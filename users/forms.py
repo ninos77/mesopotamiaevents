@@ -1,8 +1,11 @@
 from django.contrib.auth.forms import UserCreationForm
+from django.core import validators
 from django import forms
 from .models import Account
 
 class AccountRegisterForm(UserCreationForm):
+
+  email = forms.EmailField()
 
   def __init__(self, *args, **kwargs):
     super().__init__(*args, **kwargs)
@@ -16,8 +19,10 @@ class AccountRegisterForm(UserCreationForm):
             field.icon = icons[field_name]
   
 
-
+  
   class Meta:
     model = Account
     fields = ['email','first_name','last_name']
     icons = {'email': 'ln-icon-Mail','first_name':'ln-icon-Male','last_name':'ln-icon-Male','password1':'ln-icon-Lock-2','password2':'ln-icon-Lock-2'}
+    
+    

@@ -783,4 +783,8 @@
 
 })(this.jQuery);
 
+$(".alert").delay(5000).slideUp(300, function() {
+    $(this).alert('close');
+});
+
   
