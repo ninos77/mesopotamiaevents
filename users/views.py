@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.messages.views import SuccessMessageMixin
-from django.views.generic import CreateView
-from .forms import AccountRegisterForm
+from django.views.generic import CreateView, UpdateView
+from .forms import AccountRegisterForm, UserUpdateForm
 from django.contrib import messages
+from .models import *
 
 
 
@@ -33,4 +34,12 @@ def register(request):
     form = AccountRegisterForm()
   context = {'form':form}  
   return render(request,'users/user-register.html',context)
+
+
+class UserUpdateView(SuccessMessageMixin,UpdateView):
+  model = Profile
+  success_message = 'You updated Your Profile'
+  template_name = 'users/update.html'
+  form_class = UserUpdateForm
+
 

@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.core import validators
 from django import forms
-from .models import Account
+from .models import Account, Profile
 
 class AccountRegisterForm(UserCreationForm):
 
@@ -24,5 +24,17 @@ class AccountRegisterForm(UserCreationForm):
     model = Account
     fields = ['email','first_name','last_name']
     icons = {'email': 'ln-icon-Mail','first_name':'ln-icon-Male','last_name':'ln-icon-Male','password1':'ln-icon-Lock-2','password2':'ln-icon-Lock-2'}
+
+
+class UserUpdateForm(forms.ModelForm):
+
+  class Meta:
+    model = Profile
+    exclude = ('user',)
+
+    widgets = {
+      'birth_day': forms.DateInput(attrs={'type':'date'})
+    }
+    
     
     

@@ -3,6 +3,7 @@ from django_countries.fields import CountryField
 from mesopotamiaevents import settings
 from django.utils.translation import gettext_lazy as _
 from django.template.defaultfilters import slugify
+from ckeditor.fields import RichTextField
 # Create your models here.
 
 
@@ -24,7 +25,7 @@ class Event(models.Model):
   title = models.CharField(max_length=250)
   #event_type = models.CharField(max_length=30,choices=event_choices,blank=False,default=None)
   event_location = CountryField(blank_label='Country',blank=False,default=None)
-  event_description = models.TextField()
+  event_description = RichTextField(blank =True)
   publishing_date = models.DateTimeField(auto_now_add=True)
   slug = models.SlugField(default=None,editable=False)
   post_by = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,default=None,related_name='user')

@@ -3,6 +3,7 @@ from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.utils.translation import gettext_lazy as _
 from django_countries.fields import CountryField
+from PIL import Image
 # Create your models here.
 
 class UserManager(BaseUserManager):
@@ -45,7 +46,6 @@ class Account(AbstractBaseUser,PermissionsMixin):
   is_active = models.BooleanField(_('Activ'), default=True)
   is_staff = models.BooleanField(_('is staff'), default=False)
   is_admin = models.BooleanField(_('is admin'), default=False)
-  profile_image = models.ImageField(max_length=255,upload_to=get_image_profile_path,null=True,blank=True,default=get_default_profile_image)
   country = CountryField(blank_label='Country', null=True, blank=True)
 
 
@@ -57,11 +57,40 @@ class Account(AbstractBaseUser,PermissionsMixin):
   def __str__(self):
     return self.first_name
 
-  def get_profile_image_filename(self):
-    return str(self.profile_image)[str(self.profile_image).index(f'profile_image/{self.pk}/'):]
+
 
   class Meta:
 
     verbose_name = _('user')
     verbose_name_plural = _('users')
 
+
+
+class Profile(models.Model):
+  user = models.OneToOneField(Account,on_delete= models.CASCADE,related_name='profile')
+  birth_day = models.DateField(default=None,blank=True,null=True)
+  profile_image = models.ImageField(max_length=255,upload_to=get_image_profile_path,null=True,blank=True,default=get_default_profile_image)
+
+  def get_profile_image_filename(self):
+    return str(self.profile_image)[str(self.profile_image).index(f'profile_image/{self.pk}/'):]
+
+
+  def __str__(self):
+    return self.user.first_name + ' ' +self.user.last_name
+
+  def save(self,*args,**kwargs):
+    super(Profile,self).save(*args,**kwargs)
+    img = Image.open(self.profile_image)
+    if img.height > 200 or img.width >200:
+      new_size = (200,200)
+      img.thumbnail(new_size)
+      img.save(self.profile_image.path)
+  
+   
+  @property
+  def email(self):
+    return self.user.email
+  
+  @property
+  def country(self):
+    return self.user.country  

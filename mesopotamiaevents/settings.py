@@ -40,13 +40,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'events',
-    'users',
+    'users.apps.UsersConfig',
     #other
     'django_countries',
     'crispy_forms',
+    'ckeditor',
 ]
 
-AUTH_USER_MODEL = 'users.Account'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -149,3 +150,4 @@ MEDIA_URL = '/media/'
 AUTH_USER_MODEL = 'users.Account'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL = '/'
+
