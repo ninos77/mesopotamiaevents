@@ -1,5 +1,5 @@
 {% extends "base.html"%}
-{% block title%} | Home{% endblock%}
+{% block title%} | {{user.first_name}} {% endblock%}
 {% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
@@ -26,7 +26,7 @@
 		<div class="dashboard-nav-inner">
 
 			<ul data-submenu-title="Start">
-				<li><a href="dashboard.html">Dashboard</a></li>
+				<li><a href="{% url 'dashboard'  %}">Dashboard</a></li>
 				<li><a href="dashboard-messages.html">Messages <span class="nav-tag">2</span></a></li>
 			</ul>
 
@@ -66,12 +66,12 @@
 		<div id="titlebar">
 			<div class="row">
 				<div class="col-md-12">
-					<h2>My Profile</h2>
+					<h2>{{user.first_name}} {{user.last_name}}</h2>
 					<!-- Breadcrumbs -->
 					<nav id="breadcrumbs">
 						<ul>
-							<li><a href="#">Home</a></li>
-							<li><a href="#">Dashboard</a></li>
+							<li><a href="{% url 'home'  %}">Home</a></li>
+							<li><a href="{% url 'dashboard'  %}">Dashboard</a></li>
 							<li>My Profile</li>
 						</ul>
 					</nav>
@@ -89,42 +89,19 @@
 						
 						<!-- Avatar -->
 						<div class="edit-profile-photo">
-							<img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&s=300" alt="">
-							<div class="change-photo-btn">
-								<div class="photoUpload">
-								    <span><i class="fa fa-upload"></i> Upload Photo</span>
-								    <input type="file" class="upload" />
-								</div>
-							</div>
+							<img src="{{user.profile.profile_image.url}}" alt="">
+
 						</div>
 	
 						<!-- Details -->
 						<div class="my-profile">
-
-							<label>Your Name</label>
-							<input value="Tom Perrin" type="text">
-
-							<label>Phone</label>
-							<input value="(123) 123-456" type="text">
-
-							<label>Email</label>
-							<input value="tom@example.com" type="text">
-
-							<label>Notes</label>
-							<textarea name="notes" id="notes" cols="30" rows="10">Maecenas quis consequat libero, a feugiat eros. Nunc ut lacinia tortor morbi ultricies laoreet ullamcorper phasellus semper</textarea>
-
-							<label><i class="fa fa-twitter"></i> Twitter</label>
-							<input placeholder="https://www.twitter.com/" type="text">
-
-							<label><i class="fa fa-facebook-square"></i> Facebook</label>
-							<input placeholder="https://www.facebook.com/" type="text">
-
-							<label><i class="fa fa-google-plus"></i> Google+</label>
-							<input placeholder="https://www.google.com/" type="text">
+							<form method="POST" enctype="multipart/form-data">
+								{% csrf_token %}
+								{{user_form | crispy}}
+								{{profile_form | crispy}}
+								<button class="button margin-top-15">Save Changes</button>
+							</form>
 						</div>
-	
-						<button class="button margin-top-15">Save Changes</button>
-
 					</div>
 				</div>
 			</div>
@@ -167,6 +144,7 @@
 
 </div>
 <!-- Dashboard / End -->
+
 
 
 </div>
