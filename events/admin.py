@@ -10,12 +10,12 @@ class EvantImageAdmin(admin.StackedInline):
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
-    list_display = ('event_type','title','event_location','publishing_date')
+    list_display = ('id','event_type','title','event_location','publishing_date')
+    list_display_links = ('id','event_type')
     search_fields = ('event_type__name','title','event_location')
     list_filter = ('event_type__name','publishing_date')
     ordering = ('event_type','title','event_location','publishing_date')
     inlines = [EvantImageAdmin]
-    exclude = ('image',)
 
 @admin.register(EventType)
 class EventTypeAdmin(admin.ModelAdmin):

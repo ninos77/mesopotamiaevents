@@ -9,7 +9,13 @@ from ckeditor.fields import RichTextField
 
 
 def get_event_image_path(self,filname):
-  return f'event_images/{self.event.post_by.id}/{filname}'
+  return f'event_images/{self.post_by_id}/{filname}'
+
+
+def get_event_images_path(self,filname):
+  return f'event_images/{self.event.post_by_id}/{filname}'
+
+
 
 
 class EventType(models.Model):
@@ -28,10 +34,10 @@ class Event(models.Model):
   event_description = RichTextField(blank =True)
   publishing_date = models.DateTimeField(auto_now_add=True)
   slug = models.SlugField(default=None,editable=False)
-  post_by = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,default=None,related_name='user')
+  post_by = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,related_name='user')
   event_type= models.ForeignKey('EventType',on_delete=models.CASCADE,default=None,related_name='event')
   video_link = models.URLField(_("Your Video Link"),max_length=255,unique=True,blank=True)
-  image = models.ImageField(blank=True)
+  image = models.ImageField(_("Your Main Image"),upload_to=get_event_image_path,blank=True,null=True)
 
 
   def __str__(self):
@@ -48,4 +54,7 @@ class Event(models.Model):
 
 class EventImage(models.Model):
   event = models.ForeignKey(Event,on_delete=models.CASCADE)
-  event_image = models.ImageField(upload_to=get_event_image_path,blank=True,null=True)
+  image = models.ImageField(upload_to=get_event_images_path,blank=True,null=True)
+
+  def __str__(self):
+    return self.event.title
