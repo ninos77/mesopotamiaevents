@@ -33,11 +33,12 @@ class Event(models.Model):
   event_location = CountryField(blank_label='Country',blank=False,default=None)
   event_description = RichTextField(blank =True)
   publishing_date = models.DateTimeField(auto_now_add=True)
-  slug = models.SlugField(default=None,editable=False)
   post_by = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,related_name='user')
   event_type= models.ForeignKey('EventType',on_delete=models.CASCADE,default=None,related_name='event')
   video_link = models.URLField(_("Your Video Link"),max_length=255,unique=True,blank=True)
   image = models.ImageField(_("Your Main Image"),upload_to=get_event_image_path,blank=True,null=True)
+  slug = models.SlugField(default='slug')
+  hit = models.PositiveIntegerField(default=0)
 
 
   def __str__(self):

@@ -75,7 +75,7 @@ class ProfileUpdateView(LoginRequiredMixin, TemplateView):
     if user_form.is_valid() and profile_form.is_valid():
       user_form.save()
       profile_form.save()
-      messages.error(request, 'Your profile is updated successfully!')
+      messages.success(request, 'Your profile is updated successfully!!!!')
       return HttpResponseRedirect(reverse_lazy('profile'))
 
     context = self.get_context_data(
@@ -89,24 +89,24 @@ class ProfileUpdateView(LoginRequiredMixin, TemplateView):
     return self.post(request, *args, **kwargs)
 
 
-@login_required
-def profileUpdate(request):
-  if request.method == 'POST':
-    u_form = UserUpdateForm(request.POST,instance=request.user)
-    p_form = ProfileUpdateForm(request.POST,request.FILES,instance=request.user.profile)
-    if u_form.is_valid() and p_form.is_valid():
-      u_form.save()
-      p_form.save()
-      messages.success(request,'Your Profile Has Been Updated')
-      return redirect('profile')
+# @login_required
+# def profileUpdate(request):
+#   if request.method == 'POST':
+#     u_form = UserUpdateForm(request.POST,instance=request.user)
+#     p_form = ProfileUpdateForm(request.POST,request.FILES,instance=request.user.profile)
+#     if u_form.is_valid() and p_form.is_valid():
+#       u_form.save()
+#       p_form.save()
+#       messages.success(request,'Your Profile Has Been Updated')
+#       return redirect('profile')
 
-  else:
-    u_form = UserUpdateForm(instance=request.user)
-    p_form = ProfileUpdateForm(instance=request.user.profile)
+#   else:
+#     u_form = UserUpdateForm(instance=request.user)
+#     p_form = ProfileUpdateForm(instance=request.user.profile)
   
-  context = {
-    'u_form':u_form,
-    'p_form':p_form
-  }
-  return render(request,'users/profile.html',context)
+#   context = {
+#     'u_form':u_form,
+#     'p_form':p_form
+#   }
+#   return render(request,'users/profile.html',context)
 

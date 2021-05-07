@@ -75,9 +75,6 @@
 			<!-- Table-->
 			<div class="col-lg-12 col-md-12">
 
-				<div class="notification notice">
-					Your listings are shown in the table below. Expired listings will be automatically removed after 30 days.
-				</div>
 
 				<div class="dashboard-list-box margin-top-30">
 					<div class="dashboard-list-box-content">
@@ -90,17 +87,17 @@
 								<th><i class="fa fa-file-text"></i> Title</th>
 								<th><i class="fa fa-globe"></i> Location</th>
 								<th><i class="fa fa-calendar"></i> Date Posted</th>
-								<th></i> Event Type</th>
+								<th><i class="fa fa-align-left"></i> Event Type</th>
 								<th><i class="fa fa-eye"></i> Views </th>
 								<th></th>
 							</tr>									
 							<!-- Item #2 -->
 							<tr>
-								<td class="title"><a href="#">{{event.title}}</a></td>
+								<td class="title"><a href="{% url 'event_detail' pk=event.id slug=event.slug %}">{{event.title}}</a></td>
 								<td class="centered"><i class="{{ event.event_location.flag_css }}"></i> {{event.event_location.name}}</td>
 								<td>{{event.publishing_date}}</td>
 								<td>{{event.event_type}}</td>
-								<td class="centered"><a href="dashboard-manage-applications.html" class="button">Show (4)</a></td>
+								<td class="centered">Show ({{event.hit}})</td>
 								<td class="action">
 									<a href="#"><i class="fa fa-pencil"></i> Edit</a>
 									<a href="#" class="delete"><i class="fa fa-remove"></i> Delete</a>
@@ -111,7 +108,7 @@
 
 					</div>
 				</div>
-				<a href="#" class="button margin-top-30">Add New Listing</a>
+				<a href="{% url 'create_event'  %}" class="button margin-top-30">Add New Event</a>
 			</div>
 
 
