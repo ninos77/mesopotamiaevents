@@ -1,9 +1,10 @@
-from django.shortcuts import render, redirect
-from django.views.generic import TemplateView,ListView,CreateView,DetailView
+from django.shortcuts import render, redirect,get_object_or_404
+from django.views.generic import TemplateView,ListView,CreateView,DetailView,UpdateView
 from .models import *
 from .forms import EventCreationForm
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseRedirect
 from users.models import Account,Profile
 from django.db.models import F
 # Create your views here.
@@ -15,14 +16,14 @@ class HomeView(ListView):
   model = Event 
 
 
-class EventListView(ListView):
+class EventListView(LoginRequiredMixin,ListView):
   model = Event 
   template_name = 'events/events-list.html'
   context_object_name = 'events'
   ordering = ['-publishing_date']
 
 
-class CreateEventView(CreateView):
+class CreateEventView(LoginRequiredMixin,CreateView):
   template_name = 'events/create-event.html'
   form_class = EventCreationForm
   success_url = reverse_lazy("event_list")
@@ -37,7 +38,7 @@ class CreateEventView(CreateView):
 
 
 
-class EventDetailView(DetailView):
+class EventDetailView(LoginRequiredMixin,DetailView):
   template_name = 'events/event-detail.html'
   model = Event
   context_object_name = 'event'
@@ -51,3 +52,16 @@ class EventDetailView(DetailView):
       context = super(EventDetailView, self).get_context_data(**kwargs)
       return context
   
+def updateEvent(request, pk):
+  event = get_object_or_404(Event, id=pk)
+  form = EventCreationForm(instance=event)
+  if request.method == 'POST':
+    form = EventCreationForm(request.POST, request.FILES, instance=event)
+    if form.is_valid():
+      form.save()
+      return HttpResponseRedirect(reverse_lazy('event_list'))
+
+  context = {'form':form}
+  return render(request,'events/update-event.html',context)
+
+
