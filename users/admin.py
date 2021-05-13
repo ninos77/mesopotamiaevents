@@ -1,19 +1,28 @@
 from django.contrib import admin
 from .models import *
 from django.contrib.auth.admin import UserAdmin
+from events.models import Event
 # Register your models here.
 
 
 class ProfileInline(admin.StackedInline):
-    model = Profile
-    can_delete = False
-    verbose_name_plural = 'Profile'
-    fk_name = 'user'
+  model = Profile
+  can_delete = False
+  verbose_name_plural = 'Profile'
+  fk_name = 'user'
+
+
+class EventInline(admin.StackedInline):
+  model = Event
+  can_delete = False
+  verbose_name_plural = 'Event'
+  fk_name = 'post_by'
+
 
 
 class AccountAdmin(UserAdmin):
   
-  inlines = (ProfileInline, )
+  inlines = (ProfileInline,EventInline )
   modele = Account
 
   list_display = ('id','email','first_name','last_name','date_joined','is_superuser','is_active','is_staff')

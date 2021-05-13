@@ -17,10 +17,12 @@ class HomeView(ListView):
 
 
 class EventListView(LoginRequiredMixin,ListView):
-  model = Event 
   template_name = 'events/events-list.html'
-  context_object_name = 'events'
-  ordering = ['-publishing_date']
+
+  def get(self,request, **kwargs):
+    events = Event.objects.filter(post_by__email=request.user.email) 
+    context = {'events':events}
+    return render(request, self.template_name, context)
 
 
 class CreateEventView(LoginRequiredMixin,CreateView):

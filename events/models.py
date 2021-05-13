@@ -49,6 +49,10 @@ class Event(models.Model):
     super(Event, self).save(*args,**kwargs)
 
 
+  def email(self):
+    return self.post_by.email  
+
+
   class Meta:
     ordering = ('-id',)
 
