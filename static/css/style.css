@@ -3313,10 +3313,6 @@ span.part-time { background-color: #f1630d; }
 span.freelance { background-color: #53b427; }
 span.internship { background-color: #e1d123; }
 span.temporary { background-color: #e12335; }
-span.cultural_seminars { background-color: #a3882e; }
-span.Funeral { background-color: #2c2a2a; }
-span.other_events { background-color: #0e0c63; }
-
 
 
 /* ---------------------------------- */
@@ -3441,9 +3437,6 @@ span.other_events { background-color: #0e0c63; }
 .listing.freelance  { border-left: 4px solid #53b427; }
 .listing.internship { border-left: 4px solid #e1d123; }
 .listing.temporary  { border-left: 4px solid #e12335; }
-.listing.cultural_seminars  { border-left: 4px solid #a3882e; }
-.listing.Funeral  { border-left: 4px solid #2c2a2a; }
-.listing.other_events  { border-left: 4px solid #0e0c63; }
 
 .listing .listing-logo {
 	width: 60px;
@@ -3513,29 +3506,18 @@ span.other_events { background-color: #0e0c63; }
 .listing.freelance .listing-type   { color: #53b427; border-color: #53b427; background-color: #f5fbf2; }
 .listing.internship .listing-type  { color: #dcaa0c; border-color: #dfb634; background-color: #fdfcf2; }
 .listing.temporary .listing-type   { color: #e12335; border-color: #e12335; background-color: #fdf2f3; }
-.listing.cultural_seminars .listing-type   { color: #a3882e; border-color: #a3882e; background-color: #f5efbe; }
-.listing.Funeral .listing-type   { color: #ffffff; border-color: #2c2a2a; background-color: #727171; }
-.listing.other_events .listing-type   { color: #0e0c63; border-color: #0e0c63; background-color: #9e9dd3; }
-
 
 .job-spotlight span.full-time   { color: #186fc9 !important; border: 1px solid #186fc9; background-color: #f1f7fc; }
 .job-spotlight span.part-time   { color: #f1630d !important; border: 1px solid #f1630d; background-color: #fef6f0; }
 .job-spotlight span.freelance   { color: #53b427 !important; border: 1px solid #53b427; background-color: #f5fbf2; }
 .job-spotlight span.internship  { color: #dcaa0c !important; border: 1px solid #dfb634; background-color: #fdfcf2; }
 .job-spotlight span.temporary   { color: #e12335 !important; border: 1px solid #e12335; background-color: #fdf2f3; }
-.job-spotlight span.cultural_seminars   { color: #a3882e !important; border: 1px solid #a3882e; background-color: #f5efbe; }
-.job-spotlight span.Funeral   { color: #2c2a2a !important; border: 1px solid #2c2a2a; background-color: #727171; }
-.job-spotlight span.other_events   { color: #0e0c63 !important; border: 1px solid #0e0c63; background-color: #9e9dd3; }
-
 
 .job-spotlight span.full-time,
 .job-spotlight span.part-time,
 .job-spotlight span.freelance,
 .job-spotlight span.internship,
-.job-spotlight span.temporary,
-.job-spotlight span.cultural_seminars, 
-.job-spotlight span.Funeral, 
-.job-spotlight span.other_events    {
+.job-spotlight span.temporary   {
 	text-transform: none !important;
 	font-size: 12px !important;
 	font-weight: 500 !important;

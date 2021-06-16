@@ -1,11 +1,14 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from django.views.generic import TemplateView,ListView,CreateView,DetailView,UpdateView
 from .models import *
-from .forms import EventCreationForm
+from .forms import EventCreationForm, ImageForm
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.forms import modelformset_factory
 from django.http import HttpResponseRedirect
 from users.models import Account,Profile
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.db.models import F
 # Create your views here.
 
@@ -40,6 +43,7 @@ class CreateEventView(LoginRequiredMixin,CreateView):
 
 
 
+
 class EventDetailView(LoginRequiredMixin,DetailView):
   template_name = 'events/event-detail.html'
   model = Event
@@ -57,9 +61,13 @@ class EventDetailView(LoginRequiredMixin,DetailView):
 def updateEvent(request, pk):
   event = get_object_or_404(Event, id=pk)
   form = EventCreationForm(instance=event)
+  images = request.FILES.getlist("more_images")
   if request.method == 'POST':
     form = EventCreationForm(request.POST, request.FILES, instance=event)
     if form.is_valid():
+      for i in images:
+        img=EventImage(event=event, image=i)
+        img.save()
       form.save()
       return HttpResponseRedirect(reverse_lazy('event_list'))
 

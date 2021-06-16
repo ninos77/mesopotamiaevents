@@ -24,3 +24,13 @@ class EventCreationForm(forms.ModelForm):
     }
 
 
+class ImageForm(forms.ModelForm):
+    more_images = forms.FileField(required=False,label='Add More Images',widget=forms.FileInput(attrs={
+    'class':'form-control',
+    'multiple': True,
+  }))  
+    class Meta:
+        model = EventImage
+        fields = ('image', )
+
+
