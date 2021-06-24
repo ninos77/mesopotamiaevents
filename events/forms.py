@@ -9,10 +9,10 @@ from crispy_forms.layout import Submit, Layout
 
 class EventCreationForm(forms.ModelForm):
 
-  more_images = forms.FileField(required=False,widget=forms.FileInput(attrs={
-    'class':'form-control',
-    'multiple': True,
-  }))
+  # more_images = forms.FileField(required=False,widget=forms.FileInput(attrs={
+  #   'class':'form-control',
+  #   'multiple': True,
+  # }))
   class Meta:
     model = Event
 
@@ -25,12 +25,16 @@ class EventCreationForm(forms.ModelForm):
 
 
 class ImageForm(forms.ModelForm):
-    more_images = forms.FileField(required=False,label='Add More Images',widget=forms.FileInput(attrs={
-    'class':'form-control',
-    'multiple': True,
-  }))  
+  #   more_images = forms.FileField(required=False,label='Add More Images',widget=forms.FileInput(attrs={
+  #   'class':'form-control',
+  #   'multiple': True,
+  # }))  
     class Meta:
         model = EventImage
-        fields = ('image', )
-
+        fields = ['image']
+        
+        widgets = {
+      'image':forms.ClearableFileInput(attrs={'class': 'form-control','multiple': True}),
+      
+    }
 

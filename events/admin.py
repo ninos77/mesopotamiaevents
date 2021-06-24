@@ -16,7 +16,7 @@ class EventAdmin(admin.ModelAdmin):
     search_fields = ('event_type__name','title','event_location')
     list_filter = ('event_type__name','publishing_date')
     ordering = ('event_type','title','event_location','publishing_date')
-    inlines = [EvantImageAdmin]
+    # inlines = [EvantImageAdmin]
 
 
 @admin.register(EventType)

@@ -60,18 +60,29 @@ class EventDetailView(LoginRequiredMixin,DetailView):
   
 def updateEvent(request, pk):
   event = get_object_or_404(Event, id=pk)
-  form = EventCreationForm(instance=event)
-  images = request.FILES.getlist("more_images")
+  # form = EventCreationForm(instance=event)
+  # images = request.FILES.getlist("more_images")
+
   if request.method == 'POST':
     form = EventCreationForm(request.POST, request.FILES, instance=event)
-    if form.is_valid():
-      for i in images:
-        img=EventImage(event=event, image=i)
-        img.save()
-      form.save()
-      return HttpResponseRedirect(reverse_lazy('event_list'))
+    image_form= ImageForm(request.POST, request.FILES)
+    
 
-  context = {'form':form}
-  return render(request,'events/update-event.html',context)
+    if form.is_valid():
+      form.save()
+      return redirect('event_list')
+
+    if image_form.is_valid():
+      eventImage = image_form.save(commit=False)
+      eventImage.event = event
+      eventImage.save()
+      return redirect('event_list')
+
+
+  else:
+    form = EventCreationForm(instance=event)
+    image_form = ImageForm()
+      
+  return render(request,'events/update-event.html',{'form':form,'image_form':image_form,'event':event}) 
 
 
